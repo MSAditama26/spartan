@@ -171,9 +171,7 @@ class Ranking extends CI_Controller
         $data['title'] = 'Pilih Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM kegiatan";
-
-        $data['kegiatan'] = $this->db->query($sql)->result_array();
+        $data['kegiatan'] = $this->db->query("SELECT * FROM kegiatan ORDER BY finish DESC;")->result_array();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebar', $data);
@@ -475,5 +473,23 @@ class Ranking extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Selesaikan penilaian terlebih dahulu!</div>');
             redirect('ranking/pilih_kegiatan_nilai_akhir');
         }
+    }
+
+    function cek_progress($kegiatan_id)
+    {
+        $data['title'] = 'Progress Penilaian';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $query = ("SELECT pegawai.nama as nmpegawai, mitra.nama as nmmitra, (count(all_penilaian.kriteria_id)) as progress FROM all_kegiatan_pencacah LEFT JOIN mitra ON (all_kegiatan_pencacah.id_mitra = mitra.id_mitra) LEFT JOIN pegawai ON (all_kegiatan_pencacah.id_pengawas = pegawai.id_peg) LEFT JOIN all_penilaian ON (all_penilaian.all_kegiatan_pencacah_id = all_kegiatan_pencacah.id) WHERE kegiatan_id = $kegiatan_id GROUP BY nmpegawai, nmmitra ORDER BY nmpegawai ");
+
+        $data['progress'] = $this->db->query($query)->result_array();
+        $data['nama_kegiatan'] = $this->db->query("SELECT nama FROM kegiatan WHERE id=$kegiatan_id")->row_array();
+        $data['jumlah_kriteria'] = $this->db->get('kriteria')->num_rows();
+
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('ranking/progress', $data);
+        $this->load->view('template/footer');
     }
 }

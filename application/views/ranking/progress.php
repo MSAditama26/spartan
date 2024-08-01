@@ -6,31 +6,35 @@
 
             <?= $this->session->flashdata('message'); ?>
 
+            <div class="row mb-3" style="color:#00264d;">
+                <div class="col-lg-6" align=left>
+                    <h2><?= $nama_kegiatan['nama']; ?></h2>
+                </div>
+                <div class="col-lg-6" align=right>
+                    <a href="<?= base_url('ranking/pilih_kegiatan_nilai_akhir') ?>" class="btn btn-danger">Kembali</a>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-borderless table-hover" id="mydata">
                     <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
                             <th scope="col">#</th>
-                            <th scope="col">Nama Kegiatan</th>
-                            <th scope="col">Start</th>
-                            <th scope="col">Finish</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Pengawas/Pemeriksa</th>
+                            <th scope="col">Mitra</th>
+                            <th scope="col">Progress</th>
                         </tr>
                     </thead>
                     <tbody style="background-color: #ffffff; color: #00264d;">
 
 
                         <?php $i = 1; ?>
-                        <?php foreach ($kegiatan as $k) : ?>
+                        <?php foreach ($progress as $p) : ?>
                             <tr align=center>
                                 <th scope="row"><?= $i; ?></th>
-                                <td><?= $k['nama']; ?></td>
-                                <td><?= date('d F Y', $k['start']); ?></td>
-                                <td><?= date('d F Y', $k['finish']); ?></td>
-                                <td>
-                                    <a href="<?= base_url('ranking/cek_progress/') . $k['id'] ?>" class="badge badge-warning">Progress</a>
-                                    <a href="<?= base_url('ranking/nilai_akhir_ranking/') . $k['id'] ?>" class="badge badge-success">Lihat ranking</a>
-                                </td>
+                                <td><?= $p['nmpegawai']; ?></td>
+                                <td><?= $p['nmmitra']; ?></td>
+                                <td><?= $p['progress'] . '/' . $jumlah_kriteria; ?></td>
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>

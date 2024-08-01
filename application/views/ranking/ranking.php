@@ -5,11 +5,13 @@
         <div class="col-lg-6">
             <?= form_error('hitung', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
-            <div class="row" align=center style="color:#00264d;">
-                <div class="col-sm">
+            <div class="row mb-3" style="color:#00264d;">
+                <div class="col-lg-6" align=left>
                     <h3>Kegiatan: <?= $kegiatan_id['nama']; ?></h3>
                 </div>
-
+                <div class="col-lg-6" align=right>
+                    <a href="<?= base_url('ranking/pilih_kegiatan_nilai_akhir') ?>" class="btn btn-danger">Kembali</a>
+                </div>
             </div>
             <hr>
 
