@@ -155,7 +155,7 @@ class Ranking extends CI_Controller
         $data['title'] = 'Pilih Kegiatan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $sql = "SELECT * FROM kegiatan";
+        $sql = "SELECT * FROM kegiatan ORDER BY finish DESC";
 
         $data['kegiatan'] = $this->db->query($sql)->result_array();
 

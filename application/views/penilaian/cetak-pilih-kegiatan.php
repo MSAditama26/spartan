@@ -10,7 +10,7 @@
                 <table class="table table-borderless table-hover" id="mydata">
                     <thead style="background-color: #00264d; color:#e6e6e6;">
                         <tr align=center>
-
+                            <th scope="col">#</th>
                             <th scope="col">Nama Kegiatan</th>
                             <th scope="col">Start</th>
                             <th scope="col">Finish</th>
@@ -23,6 +23,7 @@
                         <?php $i = 1; ?>
                         <?php foreach ($kegiatan as $k) : ?>
                             <tr align=center>
+                                <th scope="row"><?= $i; ?></th>
                                 <td><?= $k['nama']; ?></td>
                                 <td><?= date('d F Y', $k['start']); ?></td>
                                 <td><?= date('d F Y', $k['finish']); ?></td>

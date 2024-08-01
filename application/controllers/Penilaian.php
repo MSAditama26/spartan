@@ -148,7 +148,7 @@ class Penilaian extends CI_Controller
 
             $data['id_mitra'] = $id_mitra;
 
-            $sql = "SELECT kegiatan.*, all_kegiatan_pencacah.id_pengawas FROM kegiatan JOIN all_kegiatan_pencacah ON kegiatan.id = all_kegiatan_pencacah.kegiatan_id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra";
+            $sql = "SELECT kegiatan.*, all_kegiatan_pencacah.id_pengawas FROM kegiatan JOIN all_kegiatan_pencacah ON kegiatan.id = all_kegiatan_pencacah.kegiatan_id WHERE all_kegiatan_pencacah.id_mitra = $id_mitra ORDER BY kegiatan.finish DESC";
             $data['kegiatan'] = $this->db->query($sql)->result_array();
 
             $this->load->view('template/header', $data);
@@ -166,7 +166,7 @@ class Penilaian extends CI_Controller
 
             $data['id_peg'] = $id_peg;
 
-            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pengawas ON kegiatan.id = all_kegiatan_pengawas.kegiatan_id WHERE all_kegiatan_pengawas.id_pengawas = $id_peg";
+            $sql = "SELECT kegiatan.* FROM kegiatan JOIN all_kegiatan_pengawas ON kegiatan.id = all_kegiatan_pengawas.kegiatan_id WHERE all_kegiatan_pengawas.id_pengawas = $id_peg ORDER BY kegiatan.finish DESC";
 
             $data['kegiatan'] = $this->db->query($sql)->result_array();
 
@@ -178,7 +178,7 @@ class Penilaian extends CI_Controller
         } else {
             $email = $data['user']['email'];
 
-            $data['kegiatan'] = $this->db->get('kegiatan')->result_array();
+            $data['kegiatan'] = $this->db->query('SELECT * FROM kegiatan ORDER BY kegiatan.finish DESC')->result_array();
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebar', $data);
